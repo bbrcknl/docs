@@ -38,6 +38,37 @@ The seL4 proofs only hold for specific configurations, as noted in the *Verifica
 
 More information can be found on the [Verified Configurations](../projects/sel4/verified-configurations.md) page.
 
+### Not in the lists below?
+
+If the platform, architecture, feature that you are after is not listed on this page,
+you have several options, listed below. It is important to note however that, as
+explained in the guidelines linked below, contributing new ports or features will require
+compelling arguments, discussion with the technical community (including through
+Request-For-Comments), as well as testing requirements and maintenance/expertise
+commitment, to a degree depending on the nature of the contribution.
+
+
+* You can contact one of the seL4 Foundation [Endorsed Services
+  Providers](https://sel4.systems/Foundation/Services/) to get commercial
+  support or professional advice to develop such a port or feature (with the
+  implications and expectations detailed in our [guidelines for contributing
+  kernel code](../projects/sel4/kernel-contribution.html));
+
+* You can check the [roadmap](../projects/roadmap.html) for any planned
+  contributions, from the seL4 Foundation or larger community, such on any new
+  architecture ports, new large formal verifications, or large or fundamental
+  new features;
+
+* You can contact the seL4 community through one of our [communication
+  channels](https://sel4.systems/contact/) to ask whether someone is developing
+  such a port or feature already, or whether there is general interest in discussing
+  such a new port or feature;
+
+* If you are in a position to develop the seL4 port or feature yourself, you
+  should follow our [guidelines for contributing kernel
+  code](../projects/sel4/kernel-contribution.html), which details the
+  implications and expectations.
+
 
 ### Simulating seL4
 
@@ -46,7 +77,6 @@ Note that feature support is then limited by the simulator.
 See [Running It](/seL4Test#RunningIt) for how to run seL4 using Qemu.
 
 You can also [run seL4 on VMware](VMware).
-
 
 ## ARM
 
@@ -58,7 +88,7 @@ seL4 has support for select ARMv7 and ARMv8 Platforms.
 | - | - | - | - | - | - | - | - | - |
 {%- assign sorted = site.pages | sort: 'platform' %}
 {% for page in sorted %}
-{%- if page.arm_hardware -%}
+{%- if page.arm_hardware and page.Maintained != "No" -%}
 | [{{ page.platform }}]({{page.url}}) | {{ page.soc}} | {{ page.cpu }} | {{ page.arch }} | {{ page.virtualization }} | {{ page.iommu}} | {{ page.Status }} | {{ page.Contrib }} | {{page.Maintained}} |
 {% endif %}
 {%- endfor %}
@@ -86,3 +116,26 @@ We support PC99-style Intel Architecture Platforms.
 | [PC99 (64-bit)](IA32) | x64  | VT-X           | VT-D  | [FC (without VT-X, VT-D and fastpath)][X64] | Data61         | seL4 Foundation        |
 
 [X64]: /projects/sel4/verified-configurations.html#x64
+
+
+---
+
+##  <span style="color:grey">Unmaintained platforms</span>
+
+<span style="color:grey">
+Unmaintained platforms are platforms for which code has been contributed, but
+this code is not or no longer tested and is unlikely to work. We list these
+here, because bringing an unmaintained platform up may be faster and easier than
+starting from scratch on a new platform port.
+
+
+###  <span style="color:grey">ARM</span>
+
+| <span style="color:grey">Platform</span> | <span style="color:grey">System-on-chip</span> | <span style="color:grey">Core</span> | <span style="color:grey">Arch</span> | <span style="color:grey">Virtualisation</span> | <span style="color:grey">SMMU</span> | <span style="color:grey">Verification Status</span> | <span style="color:grey">Contributed by</span> |
+| - | - | - | - | - | - | - | - | - |
+{%- assign sorted = site.pages | sort: 'platform'%}
+{% for page in sorted %}
+{%- if page.arm_hardware and page.Maintained == "No"" -%}
+| <span style="color:grey">[{{ page.platform }}]({{page.url}})</span> (**unmaintained**) | <span style="color:grey">{{ page.soc}}</span> | <span style="color:grey">{{ page.cpu }}</span> | <span style="color:grey">{{ page.arch }}</span> | <span style="color:grey">{{ page.virtualization }}</span> | <span style="color:grey">{{ page.iommu}}</span> | <span style="color:grey">{{ page.Status }}</span> | <span style="color:grey">{{ page.Contrib }}</span> |
+{% endif %}
+{%- endfor %}
